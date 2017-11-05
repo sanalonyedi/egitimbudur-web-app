@@ -22,8 +22,8 @@ class Header extends React.Component {
     render() {
         return (
             <header>
-                <nav className="container navbar navbar-expand-lg navbar-light justify-content-between">
-                    <a className="navbar-brand" href="#">Eğitimbudur</a>
+                <nav className="container navbar navbar-expand-lg justify-content-between">
+                    <a className="navbar-brand" href="#">EĞİTİMBUDUR</a>
                     <button className="navbar-toggler" type="button" onClick={this.buttonClicked.bind(this)}>
                         <span className="navbar-toggler-icon"></span>
                     </button>
