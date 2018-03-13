@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { post } from 'utils/http.helper.js';
 
 import { userInit } from 'store/userReducer'
-
+import { browserHistory } from 'react-router';
 
 class LoginView extends React.Component {
 
@@ -29,15 +30,21 @@ class LoginView extends React.Component {
 
     onUserClick() {
         // HTTP Call
-        console.log(this.state);
         const user = {
-            name: "Melih Korkmaz",
-            email: "mk@count.ly",
-            age: 33,
-            gender: "male"
+            email : this.state.email,
+            password : this.state.password
         }
 
-        this.props.loginUserData(user);
+        post('auth/login', user).then(res =>{
+            if(res.status){
+                localStorage.setItem('userToken', res.token);
+                this.props.userInit({ email : user.email });
+                //redirect dashboard
+                browserHistory.push('/app');
+            }else{
+                alert(res.message);
+            }
+        });
     }
 
 
@@ -85,7 +92,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginUserData: (user) => dispatch(userInit(user))
+        userInit: (user) => dispatch(userInit(user))
     }
 }
 
